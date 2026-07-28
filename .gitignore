@@ -1,0 +1,12 @@
+# Python virtual environments & caches
+venv/
+__pycache__/
+*.pyc
+
+# Backup files
+*.bak
+*.backup*
+*.FULLBAK*
+
+# Environment files
+.env

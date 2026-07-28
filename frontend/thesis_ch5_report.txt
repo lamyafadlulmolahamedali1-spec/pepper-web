@@ -1,0 +1,73 @@
+
+========================================================================
+  PEPPER CLINICAL INFINITY V6 — CHAPTER 5 PERFORMANCE SUITE
+========================================================================
+  System Performance Evaluation — engineering benchmark (CPU-only)
+  Date: 2026-07-26 15:44:34
+
+========================================================================
+  [T0] TEST ENVIRONMENT
+========================================================================
+   OpenCV          : 4.13.0
+   NumPy           : 2.2.6
+   MediaPipe       : 0.10.9
+   Python          : 3.10.20
+   OS              : Linux-6.8.0-124-generic-x86_64-with-glibc2.35
+   Processor       : x86_64
+
+========================================================================
+  [T1] MODEL INITIALIZATION / COLD-START (ms)
+========================================================================
+   Model            Init (ms)      Target   Verdict
+   Pose                 168.1      <500ms      PASS
+   FaceMesh              33.4      <600ms      PASS
+   Hands                 49.7      <500ms      PASS
+
+   [camera] using index 1 @ 640x480
+
+   [measuring 300 frames — Ctrl+C to stop early]
+
+      30/300 | end-to-end 33.4 ms
+      60/300 | end-to-end 34.6 ms
+      90/300 | end-to-end 27.3 ms
+      120/300 | end-to-end 25.7 ms
+      150/300 | end-to-end 17.9 ms
+      180/300 | end-to-end 34.7 ms
+      210/300 | end-to-end 18.0 ms
+      240/300 | end-to-end 17.9 ms
+      270/300 | end-to-end 27.1 ms
+      300/300 | end-to-end 18.4 ms
+
+========================================================================
+  [T2] COMPONENT LATENCY (ms) — full distribution
+========================================================================
+   Component            avg     p50     p95     p99     min     max  jitter   target  verdict
+   Pose               26.71   19.12   51.32  104.19   17.65  265.87   19.16      <20   REVIEW
+   FaceMesh            5.12    3.71   11.13   27.83    3.32   58.75    5.28      <25     PASS
+   Hands              26.06   20.75   51.13   74.48   14.48   85.91   12.85      <20   REVIEW
+   End-to-end         42.32   38.91   83.67  160.05   17.70  410.54   32.09    <33.3   REVIEW
+
+   Real-time headroom vs 30 FPS budget (33.3 ms): -27%
+
+========================================================================
+  [T3] THROUGHPUT (frames per second)
+========================================================================
+   Sustained FPS :    7.4   (target >15)   REVIEW
+   Peak FPS      :   56.5
+   Frames measured: 300   Duration: 40.3s
+
+========================================================================
+  [T4] DETECTION RELIABILITY (% frames with valid landmarks)
+========================================================================
+   Pose       100.0%   (300/300 frames)
+   Face        98.7%   (296/300 frames)
+   Hands       54.0%   (162/300 frames)
+
+========================================================================
+  [T6] TASK GENERATION (variety & capacity)
+========================================================================
+   Generated 5,000 tasks in 62.3 ms (0.012 ms/task)
+   Distinct task types  : 7  ['color_grid', 'drawing', 'letter', 'motor', 'number', 'obj_grid', 'word']
+   Teaching methods     : ['ABA-DTT', 'ESDM', 'TEACCH']
+   Back-to-back repeats : 1345/4999 (26.9%)  (lower = better variety)
+   Advertised capacity  : 100,000+ tasks
